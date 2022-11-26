@@ -23,12 +23,14 @@ import androidx.room.PrimaryKey
 /**
  * Forageable entity to be stored in the forageable_database.
  */
-@Entity
+@Entity(tableName = "forage_database")
 data class Forageable(
-    @PrimaryKey val id: Long = 0,
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
     val name: String,
     val address: String,
-    @NonNull @ColumnInfo(name = "in_season") val inSeason: Boolean,
+    @ColumnInfo(name = "in_season")
+    val inSeason: Boolean,
     val notes: String?
 )
 

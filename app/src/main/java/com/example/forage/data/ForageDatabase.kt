@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.example.forage.data
 
-import android.content.ClipData
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
@@ -26,13 +26,10 @@ import com.example.forage.model.Forageable
  * Room database to persist data for the Forage app.
  * This database stores a [Forageable] entity
  */
-// TODO: create the database with all necessary annotations, methods, variables, etc.
 
 @Database(entities = [Forageable::class], version = 1, exportSchema = false)
 abstract class ForageDatabase : RoomDatabase() {
-
     abstract fun forageableDao(): ForageableDao
-
     companion object {
         @Volatile
         private var INSTANCE: ForageDatabase? = null
@@ -41,12 +38,12 @@ abstract class ForageDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     ForageDatabase::class.java,
-                    "forageable_database"
+                    "forage_database"
                 )
                     .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
-                return instance
+                instance
             }
         }
     }

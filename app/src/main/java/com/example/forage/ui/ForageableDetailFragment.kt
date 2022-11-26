@@ -41,8 +41,9 @@ class ForageableDetailFragment : Fragment() {
 
     private val navigationArgs: ForageableDetailFragmentArgs by navArgs()
 
-    private val viewModel: ForageableViewModel by activityViewModels{
-        ForageableViewModelFactory((activity?.applicaion as BaseApplication).database.forageableDoa()
+    private val viewModel: ForageableViewModel by activityViewModels {
+        ForageableViewModelFactory(
+            (activity?.application as BaseApplication).database.forageableDao()
         )
     }
 

@@ -50,9 +50,9 @@ class ForageableViewModel(private val forageableDao: ForageableDao): ViewModel()
             inSeason = inSeason,
             notes = notes
         )
-    viewModelScope.launch(Dispatchers.IO) {
-        forageableDao.insert(forageable)
-    }
+        viewModelScope.launch(Dispatchers.IO) {
+            forageableDao.insert(forageable)
+        }
 
     }
 
@@ -71,17 +71,13 @@ class ForageableViewModel(private val forageableDao: ForageableDao): ViewModel()
             notes = notes
         )
         viewModelScope.launch(Dispatchers.IO) {
-            viewModelScope.launch(Dispatchers.IO) {
-                forageableDao.update(forageable)
-            }
+            forageableDao.update(forageable)
         }
     }
 
     fun deleteForageable(forageable: Forageable) {
         viewModelScope.launch(Dispatchers.IO) {
-            viewModelScope.launch(Dispatchers.IO) {
             forageableDao.delete(forageable)
-        }
         }
     }
 

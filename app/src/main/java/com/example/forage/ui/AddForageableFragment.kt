@@ -26,6 +26,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.forage.BaseApplication
 import com.example.forage.R
+import com.example.forage.data.ForageableDao
 import com.example.forage.databinding.FragmentAddForageableBinding
 import com.example.forage.model.Forageable
 import com.example.forage.ui.viewmodel.ForageableViewModel
@@ -37,19 +38,14 @@ import com.example.forage.ui.viewmodel.ForageableViewModelFactory
  * [Forageable]s can be saved or deleted from this fragment.
  */
 class AddForageableFragment : Fragment() {
-
     private val navigationArgs: AddForageableFragmentArgs by navArgs()
-
     private var _binding: FragmentAddForageableBinding? = null
-
     private lateinit var forageable: Forageable
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
-    private val viewModel: ForageableViewModel by activityViewModels{
-        ForageableViewModelFactory((activity?.applicaion as BaseApplication).database.forageableDoa()
+    private val viewModel: ForageableViewModel by activityViewModels {
+        ForageableViewModelFactory(
+            (activity?.application as BaseApplication).database.forageableDao()
         )
     }
 

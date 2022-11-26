@@ -36,8 +36,9 @@ import com.example.forage.ui.viewmodel.ForageableViewModelFactory
  */
 class ForageableListFragment : Fragment() {
 
-    private val viewModel: ForageableViewModel by activityViewModels{
-        ForageableViewModelFactory((activity?.applicaion as BaseApplication).database.forageableDoa()
+    private val viewModel: ForageableViewModel by activityViewModels {
+        ForageableViewModelFactory(
+            (activity?.application as BaseApplication).database.forageableDao()
         )
     }
 
@@ -66,7 +67,7 @@ class ForageableListFragment : Fragment() {
         }
 
         viewModel.fullForageable.observe(this.viewLifecycleOwner) {
-                forageables -> forageables.let { adapter.submitList(it) }
+                forageable -> forageable.let { adapter.submitList(it) }
         }
 
         binding.apply {
