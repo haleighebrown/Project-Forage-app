@@ -24,10 +24,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.forage.BaseApplication
 import com.example.forage.R
 import com.example.forage.databinding.FragmentAddForageableBinding
 import com.example.forage.model.Forageable
 import com.example.forage.ui.viewmodel.ForageableViewModel
+import com.example.forage.ui.viewmodel.ForageableViewModelFactory
 
 
 /**
@@ -46,10 +48,10 @@ class AddForageableFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    // TODO: Refactor the creation of the view model to take an instance of
-    //  ForageableViewModelFactory. The factory should take an instance of the Database retrieved
-    //  from BaseApplication
-    private val viewModel: ForageableViewModel by activityViewModels()
+    private val viewModel: ForageableViewModel by activityViewModels{
+        ForageableViewModelFactory((activity?.applicaion as BaseApplication).database.forageableDoa()
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,8 +68,10 @@ class AddForageableFragment : Fragment() {
         val id = navigationArgs.id
         if (id > 0) {
 
-            // TODO: Observe a Forageable that is retrieved by id, set the forageable variable,
-            //  and call the bindForageable method
+            viewModel.forageableId(id).observe(this.viewLifecycleOwner) {
+                    specificForageable -> forageable = specificForageable
+                    bindForageable(forageable)
+            }
 
             binding.deleteBtn.visibility = View.VISIBLE
             binding.deleteBtn.setOnClickListener {
